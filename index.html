@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ACME Train Scheduler</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.4/moment.min.js"></script>
+</head>
+
+<body>
+<div class="col-xs-12 col-md-12"	
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h1>ACME Train Scheduler</h1>
+			<h4>A Comprehensive Directory of Train Arrivals and Departures</h4>
+			<h5>For use by Wile E. Cayote.</h5>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4>Schedule of Trains</h4>
+			</div>
+		<table class="table table-striped" id="train-table">
+			<tr>
+				<th>Train Name</th>
+				<th>Destination</th>
+				<th>Frequency (minutes)</th>
+				<th>Next Arrival</th>
+				<th>Minutes Away</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4>Add Train</h4>
+			</div>
+			<form class="panel-body">
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Train Name</label>
+				    <input type="text" class="form-control" id="name-input" placeholder="Train Name">
+	  			</div>
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Destination</label>
+				    <input type="text" class="form-control" id="destination-input" placeholder="Train Destination">
+	  			</div>
+	  			<div class="form-group">
+				    <label for="exampleInputEmail1">First Train Time (HH:mm - military time)</label>
+				    <input type="text" class="form-control" id="start-input" placeholder="HH:mm">
+	  			</div>
+	  			<div class="form-group">
+				    <label for="exampleInputEmail1">Frequency (minutes)</label>
+				    <input type="text" class="form-control" id="frequency-input" placeholder="Frequency (minutes)">
+	  			</div>
+	  			<button class="btn btn-default" id="add-train" type="submit">Submit</button>
+			</form>
+	</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src='assets/javascript/app.js'></script>
+
+</body>
+
+</html>
