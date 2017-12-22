@@ -22,7 +22,7 @@ var next_arrival = "";
 var next_arrival_mili = '';
 var minutes_away = "";
 
-function calculateNextArrival (){
+function calculateNextArrival (start_time){
 
   var start_string = start_time.toString().split(':');
   var start_hour = start_string[0];
@@ -45,10 +45,10 @@ function calculateNextArrival (){
   next_arrival = next_time.format('h:mm');
 }
 
-function calculateMinutesAway(){
+function calculateMinutesAway(next_mili){
   
   var today = moment();
-  minutes_away = moment().to(next_arrival_mili);
+  minutes_away = moment().to(next_mili);
 
 }
 
@@ -99,13 +99,13 @@ database.ref().on('child_added', function(child_snapshot){
   frequency_col.attr('id', 'frequency');
   table_row.append(frequency_col);
 
-  calculateNextArrival();
+  calculateNextArrival(start_time);
 
   var next_arrival_col = $('<td>').text(next_arrival);
   next_arrival_col.attr('id', 'next_arrival');
   table_row.append(next_arrival_col);
 
-  calculateMinutesAway();
+  calculateMinutesAway(next_arrival_mili);
 
   var minutes_away_col = $('<td>').text(minutes_away);
   minutes_away_col.attr('id', 'minutes_away');
@@ -117,7 +117,7 @@ database.ref().on('child_added', function(child_snapshot){
   table_row.append(update_btn);
 
   var remove_btn = $('<td>');
-  remove_btn.append('<button class="btn btn-default" id="remove-btn entry-id="' + entry_id + '">Remove Train</button>');
+  remove_btn.append('<button class="btn btn-default" id="remove-btn" entry-id="' + entry_id + '">Remove Train</button>');
   remove_btn.attr('entry-id', entry_id);
   table_row.append(remove_btn);
 
@@ -135,7 +135,6 @@ $(document).on('click', '#update-btn', function(){
 
   var _id = $('#update-btn').attr('entry-id');
   console.log(_id);
-  var update = {};
 
 });
 
@@ -144,4 +143,37 @@ $(document).on('click', '#remove-btn', function(){
   var _id = $('#remove-btn').attr('entry-id');
   console.log(_id);
 
+  var to_remove = database.ref(_id);
+
+  to_remove.remove().then(function(){
+
+    $('#' + _id).empty();
+
+  }).catch(function(error){
+
+    console.log(error.message);
+
+  });
 });
+
+
+window.setInterval(function(){
+
+  $('tr').each(function(){
+
+    if($(this).attr('id') == undefined){
+      return;
+    }
+    else{
+
+      console.log('here');
+      var _id = $(this).attr('id');
+
+      var to_update = database.ref(_id);
+
+
+    }
+
+  });
+
+}, 10000);
